@@ -4,12 +4,16 @@
 // active days into four equal quarters by how much I did, and the line under the grid gives
 // the busiest stretches. GitHub Actions runs it every three hours
 // (.github/workflows/contrib.yml), so it keeps up with the real graph. It needs no packages.
-//   GITHUB_TOKEN=… node .github/scripts/contrib.mjs     fetch the calendar and draw it
+// It reads the calendar visitors see on my profile, which counts private contributions; the
+// GraphQL API with the job's own token leaves those out, so that is only the fallback.
+//   node .github/scripts/contrib.mjs                    fetch the calendar and draw it
+//   node .github/scripts/contrib.mjs calendar.html      draw a saved copy of that page
 //   node .github/scripts/contrib.mjs calendar.json      draw a saved GraphQL answer
 import { readFileSync, writeFileSync } from "node:fs";
 
 const LOGIN = process.env.GITHUB_REPOSITORY_OWNER || "Manishram-ai";
 const OUT = new URL("../../assets/", import.meta.url);
+const PAGE = `https://github.com/users/${LOGIN}/contributions`;
 const QUERY = "query($login:String!){user(login:$login){contributionsCollection{contributionCalendar{totalContributions weeks{contributionDays{date weekday contributionCount}} months{name totalWeeks}}}}}";
 
 const MONO = `ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace`;
@@ -25,22 +29,62 @@ const BAYER = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
 const r2 = (v) => Math.round(v * 100) / 100;
 const fmt = (n) => n.toLocaleString("en-US");
 
-async function calendar() {
-  const file = process.argv[2];
-  let body;
-  if (file) body = JSON.parse(readFileSync(file, "utf8"));
-  else {
-    if (!process.env.GITHUB_TOKEN) throw new Error("set GITHUB_TOKEN, or pass a saved calendar.json");
-    const res = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers: { authorization: `bearer ${process.env.GITHUB_TOKEN}`, "content-type": "application/json", "user-agent": `${LOGIN}-profile` },
-      body: JSON.stringify({ query: QUERY, variables: { login: LOGIN } }),
-    });
-    body = await res.json();
+// the profile's calendar page, turned into the shape the GraphQL API gives: each day cell
+// is "contribution-day-component-<weekday>-<week>" and its tooltip says how many. A tooltip
+// stops at "100+", so those days share what the heading's total leaves after the others.
+function fromPage(html) {
+  const days = new Map();
+  for (const [td] of html.matchAll(/<td\b[^>]*>/g)) {
+    const date = td.match(/data-date="([\d-]+)"/)?.[1], id = td.match(/id="(contribution-day-component-(\d)-(\d+))"/);
+    if (date && id) days.set(id[1], { date, weekday: +id[2], week: +id[3], contributionCount: null });
   }
+  for (const [, id, text] of html.matchAll(/<tool-tip\b[^>]*\bfor="(contribution-day-component-\d-\d+)"[^>]*>([^<]*)/g)) {
+    const day = days.get(id);
+    if (day) day.contributionCount = /^\s*No contributions/.test(text) ? 0 : /^\s*100\+/.test(text) ? "100+" : Number(text.match(/^\s*([\d,]+) contributions?/)?.[1].replaceAll(",", ""));
+  }
+  const all = [...days.values()].sort((a, b) => a.date.localeCompare(b.date));
+  const total = Number(html.match(/([\d,]+)\s+contributions?\s+in the last year/)?.[1].replaceAll(",", ""));
+  const capped = all.filter((d) => d.contributionCount === "100+");
+  const rest = total - all.reduce((s, d) => s + (d.contributionCount === "100+" ? 0 : d.contributionCount), 0);
+  capped.forEach((d, i) => (d.contributionCount = Math.floor(rest / capped.length) + (i < rest % capped.length ? 1 : 0)));
+  const weeks = [];
+  for (const { week, ...day } of all) {
+    if (!Number.isFinite(day.contributionCount)) throw new Error(`no count for ${day.date}`);
+    (weeks[week] ??= { contributionDays: [] }).contributionDays.push(day);
+  }
+  const months = [...html.matchAll(/<td class="ContributionCalendar-label" colspan="(\d+)"[\s\S]*?<span aria-hidden="true"[^>]*>(\w+)</g)].map(([, n, name]) => ({ name, totalWeeks: +n }));
+  if (!weeks.length || weeks.includes(undefined) || !months.length || !Number.isFinite(total) || rest < 100 * capped.length || (!capped.length && rest !== 0))
+    throw new Error(`could not read the calendar page (${days.size} days, ${total - rest} counted, ${total} in the heading)`);
+  return { totalContributions: total, weeks, months };
+}
+
+async function fromApi() {
+  if (!process.env.GITHUB_TOKEN) throw new Error("set GITHUB_TOKEN to fall back on the GraphQL API");
+  const res = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: { authorization: `bearer ${process.env.GITHUB_TOKEN}`, "content-type": "application/json", "user-agent": `${LOGIN}-profile` },
+    body: JSON.stringify({ query: QUERY, variables: { login: LOGIN } }),
+  });
+  return graphql(await res.json());
+}
+
+function graphql(body) {
   const cal = body.data?.user?.contributionsCollection?.contributionCalendar;
   if (!cal) throw new Error(`no calendar in the answer: ${JSON.stringify(body.errors ?? body).slice(0, 300)}`);
   return cal;
+}
+
+async function calendar() {
+  const file = process.argv[2];
+  if (file) return file.endsWith(".json") ? graphql(JSON.parse(readFileSync(file, "utf8"))) : fromPage(readFileSync(file, "utf8"));
+  try {
+    const res = await fetch(PAGE, { headers: { "user-agent": `${LOGIN}-profile`, "x-requested-with": "XMLHttpRequest" } });
+    if (!res.ok) throw new Error(`${PAGE} answered ${res.status}`);
+    return fromPage(await res.text());
+  } catch (err) {
+    console.warn(`${err.message}; using the GraphQL API, which leaves out private contributions`);
+    return fromApi();
+  }
 }
 
 // the level of a day: 0 for none, then 1 to 4 by which quarter of my active days it falls in
