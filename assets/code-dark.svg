@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="156" viewBox="0 0 880 156" role="img" aria-label="Lines of code on GitHub: 4,344,106 added and 68,629 removed, in 1,597 commits across 44 repositories, with a diffstat line of 98 plus signs and 2 minus signs."><title>Lines of code on GitHub: 4,344,106 added and 68,629 removed, in 1,597 commits across 44 repositories, with a diffstat line of 98 plus signs and 2 minus signs.</title><style>.card{fill:#0d1117;stroke:#ffffff17;stroke-width:1}
+.k{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;font-size:10.5px;font-weight:700;letter-spacing:.16em;fill:#8b949e}
+.big{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;font-size:34px;font-weight:700;letter-spacing:-.01em}.plusf{fill:#3fb950}.minusf{fill:#f85149}
+.note{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;font-size:10px;letter-spacing:.08em;fill:#8b949e;text-anchor:end}
+.ds{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;font-size:15px;font-weight:700;text-anchor:middle}
+.cover{fill:#0d1117}.cur{fill:#ff7b5c}.print{transform:translateX(800px)}
+@media (prefers-reduced-motion:no-preference){.print{animation:print 12s steps(100,end) infinite}.cur{animation:blink 1.2s step-end infinite}}
+@keyframes print{0%{transform:translateX(0)}13.33%,100%{transform:translateX(800px)}}
+@keyframes blink{0%{opacity:1}50%{opacity:0}}@media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
+<defs><clipPath id="z"><rect x="36" y="109" width="816" height="22"/></clipPath></defs>
+<rect class="card" x=".5" y=".5" width="879" height="155" rx="14"/>
+<text class="k" x="40" y="44">LINES IN</text><text class="big plusf" x="40" y="82">+4,344,106</text>
+<text class="k" x="290" y="44">LINES OUT</text><text class="big minusf" x="290" y="82">−68,629</text>
+<text class="note" x="840" y="44">1,597 COMMITS</text><text class="note" x="840" y="63">44 REPOSITORIES</text><text class="note" x="840" y="82">133 MERGED PRS</text>
+<text class="ds plusf" x="44 52 60 68 76 84 92 100 108 116 124 132 140 148 156 164 172 180 188 196 204 212 220 228 236 244 252 260 268 276 284 292 300 308 316 324 332 340 348 356 364 372 380 388 396 404 412 420 428 436 444 452 460 468 476 484 492 500 508 516 524 532 540 548 556 564 572 580 588 596 604 612 620 628 636 644 652 660 668 676 684 692 700 708 716 724 732 740 748 756 764 772 780 788 796 804 812 820" y="124">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</text><text class="ds minusf" x="828 836" y="124">--</text>
+<g clip-path="url(#z)"><g class="print"><rect class="cover" x="40" y="109" width="880" height="22"/><rect class="cur" x="40.5" y="113" width="7" height="13" rx="1"/></g></g>
+</svg>

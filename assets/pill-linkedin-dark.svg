@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="116" height="50" viewBox="0 0 116 50" role="img" aria-label="LinkedIn">
+<title>LinkedIn</title><style>.shell{fill:#161b22;stroke:#ffffff17;stroke-width:1}
+.lab{fill:#5ad1c3}.line{stroke:#0d111755;stroke-width:1}
+.txt{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;font-size:12px;font-weight:700;letter-spacing:.02em;fill:#0d1117}
+.win{fill:#0d1117}.pack{fill:#3a2c24}.hub{fill:none;stroke:#e6edf3;stroke-width:1.1}.spoke{stroke:#e6edf3;stroke-width:1.1;stroke-linecap:round}
+.tape{stroke:#3a2c24;stroke-width:1.4}.screw{fill:#8b949e}.ar{fill:none;stroke:#0d1117;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+@media (prefers-reduced-motion:no-preference){.spin{animation:spin linear infinite}}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(-360deg)}}</style>
+<rect class="shell" x=".5" y=".5" width="115" height="49" rx="7"/>
+<rect class="lab" x="5" y="5" width="106" height="23" rx="4"/>
+<path class="line" d="m11 25.5h94"/>
+<text class="txt" x="12" y="20.5">linkedin</text>
+<path class="ar" d="m95 20l6-6m-4.5 0h4.5v4.5"/>
+<rect class="win" x="20" y="31.5" width="76" height="13" rx="6.5"/>
+<path class="tape" d="m29 43.4h58"/>
+<circle class="pack" cx="29" cy="38" r="5.6"/><g class="spin" style="transform-origin:29px 38px;animation-duration:2.4s"><circle class="hub" cx="29" cy="38" r="4.3"/><path class="spoke" d="m30.6 38h2.4m-4.8 1.4l-1.2 2.1m1.2-4.9l-1.2-2.1"/></g><circle class="pack" cx="87" cy="38" r="5.6"/><g class="spin" style="transform-origin:87px 38px;animation-duration:2.4s"><circle class="hub" cx="87" cy="38" r="4.3"/><path class="spoke" d="m88.6 38h2.4m-4.8 1.4l-1.2 2.1m1.2-4.9l-1.2-2.1"/></g>
+<circle class="screw" cx="8" cy="44" r="1.1"/><circle class="screw" cx="108" cy="44" r="1.1"/>
+</svg>
