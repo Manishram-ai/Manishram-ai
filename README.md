@@ -22,7 +22,7 @@ Hi, I'm Manish. I co-founded [Parafield](https://parafield.ai) and I'm its Chief
 
 - <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Manishram-ai/Manishram-ai/main/assets/icon-merge-dark.svg"><img alt="" src="https://raw.githubusercontent.com/Manishram-ai/Manishram-ai/main/assets/icon-merge-light.svg" height="18"></picture>&nbsp; Pull requests to Swift, Turborepo, Vercel’s Chat SDK, Backstage, NASA’s F´ and AWS Powertools.
 
-- <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Manishram-ai/Manishram-ai/main/assets/icon-trophy-dark.svg"><img alt="" src="https://raw.githubusercontent.com/Manishram-ai/Manishram-ai/main/assets/icon-trophy-light.svg" height="18"></picture>&nbsp; In grade 9, part of a Guinness World Record: the most people taking an online programming lesson in 24 hours. Top 5% in India’s national STEM boards, twice.
+- <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Manishram-ai/Manishram-ai/main/assets/icon-trophy-dark.svg"><img alt="" src="https://raw.githubusercontent.com/Manishram-ai/Manishram-ai/main/assets/icon-trophy-light.svg" height="18"></picture>&nbsp; In grade 9, part of a Guinness World Record: the most people completing an online programming lesson in 24 hours. Top 5% in India’s national STEM boards, twice.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Manishram-ai/Manishram-ai/main/assets/banner-papers-dark.svg"><img alt="Papers" src="https://raw.githubusercontent.com/Manishram-ai/Manishram-ai/main/assets/banner-papers-light.svg" width="100%"></picture>
 
